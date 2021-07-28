@@ -1,0 +1,43 @@
+@import "./variables";
+@import "./mixins";
+
+body {
+  margin: 0;
+  background-color: $main-bg-color;
+}
+
+.items-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.middle-align {
+  @extend .items-center, .justify-center;
+}
+
+.app-container {
+  width: 100%;
+  padding: 0 ($margin-navbar / 2);
+
+  @include media(md) {
+    max-width: $screen-md;
+  }
+
+  @include media(lg) {
+    max-width: $screen-lg;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
