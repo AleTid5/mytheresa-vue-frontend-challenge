@@ -34,6 +34,8 @@ export default {
   width: 100%;
   height: $margin-navbar;
   background-color: $main-app-color;
+  position: sticky;
+  top: 0;
 
   nav {
     @extend .app-container, .space-between, .items-center;
