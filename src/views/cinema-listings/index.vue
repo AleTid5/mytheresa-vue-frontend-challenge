@@ -1,6 +1,11 @@
 <template>
   <div class="movie-grid">
-    <movie-card v-for="movie in movies" :movie="movie" :key="movie" />
+    <movie-card
+      v-for="movie in movies"
+      :movie="movie"
+      :key="movie"
+      with-category-button
+    />
   </div>
 </template>
 
@@ -39,12 +44,16 @@ export default {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include media(lg) {
+  @include media(md) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @include media(xl) {
+  @include media(lg) {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media(xl) {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 </style>

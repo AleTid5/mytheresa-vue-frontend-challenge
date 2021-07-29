@@ -8,9 +8,18 @@
       </div>
       <div class="title">{{ movie.title }}</div>
       <div class="overview">¡{{ movie.overview }}</div>
-      <button class="button-remove-from-favorites" v-if="withRemoveButton">
+      <button class="button remove-from-favorites" v-if="withRemoveButton">
         <span>Remove movie</span>
       </button>
+      <router-link
+        :to="`/category/${movie.genre_ids[0]}`"
+        class="at-bottom"
+        v-if="withCategoryButton"
+      >
+        <button class="button see-category">
+          <span>See more of this category</span>
+        </button>
+      </router-link>
     </div>
   </card>
 </template>
@@ -29,13 +38,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    withCategoryButton: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
 .favorite-movie-card {
-  $image-size: 8rem;
+  $image-size: 5rem;
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
@@ -44,19 +57,23 @@ export default {
     width: $image-size;
     height: $image-size;
     margin-top: -($image-size / 2) - 1rem;
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     border-radius: 50%;
   }
 
   .description {
-    margin-top: 1rem;
+    position: relative;
     text-align: center;
     color: white;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    height: 100%;
 
     .stars {
       color: $main-app-color;
+      position: absolute;
+      top: -1.5rem;
+      right: 0.5rem;
 
       sup {
         margin-left: 0.25rem;
@@ -73,15 +90,21 @@ export default {
       }
     }
 
+    .at-bottom {
+      display: flex;
+      align-items: flex-end;
+    }
+
     .overview {
       margin-top: 0.5rem;
       font-size: 1.3rem;
       font-style: italic;
-      max-height: 5rem;
+      max-height: 3.5rem;
+      color: $title-color;
       overflow: auto;
     }
 
-    .button-remove-from-favorites {
+    .button {
       @extend .items-center;
       cursor: pointer;
       height: 40px;
@@ -91,8 +114,6 @@ export default {
       font-weight: 700;
       border-radius: 0.375rem;
       background-color: transparent;
-      border: 1px solid tomato;
-      box-shadow: 0 0 10px tomato;
       margin: 2rem auto 1rem auto;
 
       span {
@@ -101,6 +122,16 @@ export default {
 
       &:hover {
         filter: brightness(0.9);
+      }
+
+      &.remove-from-favorites {
+        border: 1px solid tomato;
+        box-shadow: 0 0 10px tomato;
+      }
+
+      &.see-category {
+        border: 1px solid $main-app-color;
+        box-shadow: 0 0 10px $main-app-color;
       }
     }
   }

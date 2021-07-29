@@ -6,6 +6,10 @@ body {
   background-color: $main-bg-color;
 }
 
+a:-webkit-any-link:active, a:-webkit-any-link {
+  color: transparent;
+}
+
 .items-center {
   display: flex;
   align-items: center;

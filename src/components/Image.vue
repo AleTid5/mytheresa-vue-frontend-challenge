@@ -1,5 +1,5 @@
 <template>
-  <img loading="lazy" :src="baseUrl + src" :alt="alt" />
+  <img loading="lazy" :src="baseUrl + src" :alt="alt" :class="className" />
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
       type: String,
       default: "",
     },
+    className: String,
   },
   data: () => ({
     baseUrl: process.env.VUE_APP_TMDB_IMAGE_URL,
