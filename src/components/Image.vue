@@ -12,9 +12,10 @@ export default {
       default: "",
     },
     className: String,
+    baseUrl: {
+      type: String,
+      default: process.env.VUE_APP_TMDB_IMAGE_URL,
+    },
   },
-  data: () => ({
-    baseUrl: process.env.VUE_APP_TMDB_IMAGE_URL,
-  }),
 };
 </script>
