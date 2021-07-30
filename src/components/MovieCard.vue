@@ -8,16 +8,24 @@
       </div>
       <div class="title">{{ movie.title }}</div>
       <div class="overview">¡{{ movie.overview }}</div>
+      <div class="categories">
+        <category-badge
+          v-for="categoryId in movie.genre_ids"
+          :key="categoryId"
+          :category-id="categoryId"
+          @onClick="goToCategory"
+        />
+      </div>
       <button class="button remove-from-favorites" v-if="withRemoveButton">
         <span>Remove movie</span>
       </button>
       <router-link
-        :to="`/category/${movie.genre_ids[0]}`"
+        :to="`/movie/${movie.id}`"
         class="at-bottom"
         v-if="withCategoryButton"
       >
         <button class="button see-category">
-          <span>See more of this category</span>
+          <span>See description</span>
         </button>
       </router-link>
     </div>
@@ -25,13 +33,15 @@
 </template>
 
 <script>
-import Card from "@/components/Card";
+import router from "@/router";
 import StarIcon from "@/assets/icons/StarIcon";
-import Image from "@/components/Image";
+import Card from "./Card";
+import Image from "./Image";
+import CategoryBadge from "./CategoryBadge";
 
 export default {
   name: "MovieCard",
-  components: { Image, StarIcon, Card },
+  components: { CategoryBadge, Image, StarIcon, Card },
   props: {
     movie: Object,
     withRemoveButton: {
@@ -41,6 +51,11 @@ export default {
     withCategoryButton: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    goToCategory: (categoryId) => {
+      router.push(`/category/${categoryId}`)
     },
   },
 };
@@ -66,7 +81,7 @@ export default {
     text-align: center;
     color: white;
     display: grid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(4, auto);
     height: 100%;
 
     .stars {
@@ -88,6 +103,13 @@ export default {
       @include media(sm) {
         font-size: 2rem;
       }
+    }
+
+    .categories {
+      display: flex;
+      margin-top: 0.5rem;
+      justify-content: space-around;
+      flex-wrap: wrap;
     }
 
     .at-bottom {

@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import CinemaListings from "@/views/cinema-listings";
+import Category from "@/views/category";
 
 const routes = [
   {
@@ -9,9 +10,7 @@ const routes = [
   },
 ];
 
-const index = createRouter({
+export default createRouter({
   history: createWebHistory(),
   routes,
 });
-
-export default index;
