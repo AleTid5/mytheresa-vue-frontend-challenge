@@ -1,8 +1,8 @@
 <template>
   <div class="app-container favorite-movies">
-    <div class="movie-grid" v-if="movies.length">
+    <div class="movie-grid" v-if="favoriteMovies.length">
       <movie-card
-        v-for="movie in movies"
+        v-for="movie in favoriteMovies"
         :movie="movie"
         :key="movie"
         with-remove-button
@@ -15,17 +15,14 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import MovieCard from "@/components/MovieCard";
 
 export default {
   name: "FavoriteMoviesView",
   components: { MovieCard },
 
-  computed: {
-    movies() {
-      return this.$store.state.favoriteMovies;
-    },
-  },
+  computed: mapState("favorite-movies-module", ["favoriteMovies"]),
 };
 </script>
 

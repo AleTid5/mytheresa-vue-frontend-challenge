@@ -1,6 +1,5 @@
-import { createStore } from "vuex";
-
-export default createStore({
+export default {
+  namespaced: true,
   state() {
     return {
       favoriteMovies: JSON.parse(localStorage.getItem("favorite-movies")) ?? [],
@@ -30,4 +29,4 @@ export default createStore({
       );
     },
   },
-});
+};

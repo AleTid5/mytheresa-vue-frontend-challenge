@@ -57,7 +57,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["removeMovieFromFavorites"]),
+    ...mapMutations("favorite-movies-module", ["removeMovieFromFavorites"]),
     goToCategory(categoryId) {
       this.$router.push(`/category/${categoryId}`);
     },

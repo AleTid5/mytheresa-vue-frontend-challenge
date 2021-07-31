@@ -47,8 +47,11 @@ export default {
     movie: Object,
   },
   methods: {
-    ...mapMutations(["addMovieToFavorites", "removeMovieFromFavorites"]),
-    ...mapGetters(["isMovieInTheList"]),
+    ...mapMutations("favorite-movies-module", [
+      "addMovieToFavorites",
+      "removeMovieFromFavorites",
+    ]),
+    ...mapGetters("favorite-movies-module", ["isMovieInTheList"]),
   },
 };
 </script>

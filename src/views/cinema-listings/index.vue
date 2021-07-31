@@ -1,4 +1,7 @@
 <template>
+  <div class="search-input-bar">
+    <SearchInput />
+  </div>
   <div class="app-container movie-grid">
     <movie-card
       v-for="movie in movies"
@@ -16,10 +19,11 @@ import Loader from "@/components/Loader";
 import MovieCard from "@/components/MovieCard";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
+import SearchInput from "../../components/SearchInput";
 
 export default {
   name: "CinemaListingsView",
-  components: { Loader, MovieCard },
+  components: { SearchInput, Loader, MovieCard },
 
   computed: {
     showLoader() {
@@ -76,6 +80,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.search-input-bar {
+  position: sticky;
+  top: $margin-navbar;
+  z-index: 1;
+  background-color: rgba($main-bg-color, 0.9);
+  backdrop-filter: blur(5px);
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
 .movie-grid {
   padding: 2rem 0;
   display: grid;

@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import App from "./App";
 import Router from "./router";
-import FavoriteMoviesStore from "./stores/favorite-movies.store";
+import VuexStore from "./stores";
 
-createApp(App).use(Router).use(FavoriteMoviesStore).mount("#app");
+createApp(App).use(Router).use(VuexStore).mount("#app");

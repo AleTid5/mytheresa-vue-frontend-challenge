@@ -6,7 +6,7 @@
       </router-link>
       <router-link to="/favorite-movies" class="icon items-center">
         <heart-icon />
-        <div class="icon-badge" v-if="favoriteMovies.length > 0">
+        <div class="icon-badge" v-if="favoriteMovies?.length > 0">
           <div>{{ favoriteMovies.length }}</div>
         </div>
       </router-link>
@@ -21,7 +21,7 @@ import HeartIcon from "@/assets/icons/HeartIcon";
 export default {
   name: "Navbar",
   components: { HeartIcon },
-  computed: mapState(["favoriteMovies"]),
+  computed: mapState("favorite-movies-module", ["favoriteMovies"]),
 };
 </script>
 
