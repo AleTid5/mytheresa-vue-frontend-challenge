@@ -1,10 +1,10 @@
 import api from "@/config/api.config";
 
 export default {
-  getListByGenreId: async (genreId) => {
+  getListByCategoryId: async (categoryId) => {
     const {
       data: { results },
-    } = await api.get(`/genre/${genreId}/movies`);
+    } = await api.get(`/genre/${categoryId}/movies`);
 
     return results;
   },

@@ -8,6 +8,11 @@ const routes = [
     name: "CinemaListings",
     component: CinemaListings,
   },
+  {
+    path: "/category/:categoryId",
+    name: "Category",
+    component: Category,
+  },
 ];
 
 export default createRouter({

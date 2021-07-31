@@ -1,7 +1,9 @@
 <template>
-  <span :class="`badge badge-${categoryId}`" @click="$emit('onClick', categoryId)">{{
-    genreName
-  }}</span>
+  <span
+    :class="`badge badge-${categoryId}`"
+    @click="$emit('onClick', categoryId)"
+    >{{ genreName }}</span
+  >
 </template>
 
 <script>
@@ -36,6 +38,7 @@ export default {
   margin: 1rem 0.2rem 0 0.2rem;
   cursor: pointer;
   user-select: none;
+  line-height: 5px;
 
   &-28 {
     color: $category-action-color;

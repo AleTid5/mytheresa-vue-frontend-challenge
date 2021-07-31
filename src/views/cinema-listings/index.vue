@@ -1,9 +1,10 @@
 <template>
-  <div class="movie-grid">
+  <div class="app-container movie-grid">
     <movie-card
       v-for="movie in movies"
       :movie="movie"
       :key="movie"
+      with-categories-badges
       with-category-button
     />
   </div>
@@ -11,17 +12,14 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader";
 import MovieCard from "@/components/MovieCard";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
-import Loader from "../../components/Loader";
 
 export default {
   name: "CinemaListings",
   components: { Loader, MovieCard },
-  props: {
-    msg: String,
-  },
 
   computed: {
     showLoader() {
@@ -48,7 +46,7 @@ export default {
   methods: {
     async retrieveMovies() {
       this.movies.push(
-        ...(await MovieListApiService.getListByGenreId(
+        ...(await MovieListApiService.getListByCategoryId(
           SECTIONS[this.sectionRetrievingIndex++].id
         ))
       );
@@ -79,7 +77,7 @@ export default {
 
 <style scoped lang="scss">
 .movie-grid {
-  padding: 2rem;
+  padding: 2rem 0;
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr;
@@ -94,10 +92,6 @@ export default {
 
   @include media(lg) {
     grid-template-columns: repeat(4, 1fr);
-  }
-
-  @include media(xl) {
-    grid-template-columns: repeat(5, 1fr);
   }
 }
 </style>

@@ -8,7 +8,7 @@
       </div>
       <div class="title">{{ movie.title }}</div>
       <div class="overview">¡{{ movie.overview }}</div>
-      <div class="categories">
+      <div class="categories" v-if="withCategoriesBadges">
         <category-badge
           v-for="categoryId in movie.genre_ids"
           :key="categoryId"
@@ -16,32 +16,28 @@
           @onClick="goToCategory"
         />
       </div>
-      <button class="button remove-from-favorites" v-if="withRemoveButton">
-        <span>Remove movie</span>
-      </button>
+      <Button type="red" v-if="withRemoveButton">Remove movie</Button>
       <router-link
         :to="`/movie/${movie.id}`"
         class="at-bottom"
         v-if="withCategoryButton"
       >
-        <button class="button see-category">
-          <span>See description</span>
-        </button>
+        <Button type="yellow">See description</Button>
       </router-link>
     </div>
   </card>
 </template>
 
 <script>
-import router from "@/router";
 import StarIcon from "@/assets/icons/StarIcon";
 import Card from "./Card";
 import Image from "./Image";
 import CategoryBadge from "./CategoryBadge";
+import Button from "./Button";
 
 export default {
   name: "MovieCard",
-  components: { CategoryBadge, Image, StarIcon, Card },
+  components: { Button, CategoryBadge, Image, StarIcon, Card },
   props: {
     movie: Object,
     withRemoveButton: {
@@ -52,10 +48,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    withCategoriesBadges: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    goToCategory: (categoryId) => {
-      router.push(`/category/${categoryId}`)
+    goToCategory(categoryId) {
+      this.$router.push(`/category/${categoryId}`);
     },
   },
 };
@@ -64,7 +64,7 @@ export default {
 <style scoped lang="scss">
 .favorite-movie-card {
   $image-size: 5rem;
-  margin-top: 4rem;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
 
@@ -115,6 +115,7 @@ export default {
     .at-bottom {
       display: flex;
       align-items: flex-end;
+      margin: 2rem auto 1rem auto;
     }
 
     .overview {
@@ -124,37 +125,6 @@ export default {
       max-height: 3.5rem;
       color: $title-color;
       overflow: auto;
-    }
-
-    .button {
-      @extend .items-center;
-      cursor: pointer;
-      height: 40px;
-      color: white;
-      text-transform: uppercase;
-      padding: 0.5rem 1rem;
-      font-weight: 700;
-      border-radius: 0.375rem;
-      background-color: transparent;
-      margin: 2rem auto 1rem auto;
-
-      span {
-        font-size: 0.8rem;
-      }
-
-      &:hover {
-        filter: brightness(0.9);
-      }
-
-      &.remove-from-favorites {
-        border: 1px solid tomato;
-        box-shadow: 0 0 10px tomato;
-      }
-
-      &.see-category {
-        border: 1px solid $main-app-color;
-        box-shadow: 0 0 10px $main-app-color;
-      }
     }
   }
 }

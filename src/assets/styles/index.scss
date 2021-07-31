@@ -30,15 +30,19 @@ a:-webkit-any-link:active, a:-webkit-any-link {
 }
 
 .app-container {
+  $padding: $margin-navbar / 2;
   width: 100%;
-  padding: 0 ($margin-navbar / 2);
+  padding: 0 ($padding);
+  margin: 0 auto;
+
+  max-width: calc(100% - #{$padding} * 2);
 
   @include media(md) {
-    max-width: $screen-md;
+    max-width: $screen-md - $padding * 2;
   }
 
   @include media(lg) {
-    max-width: $screen-lg;
+    max-width: $screen-lg - $padding * 2;
   }
 }
 
