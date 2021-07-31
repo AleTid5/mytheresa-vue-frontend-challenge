@@ -16,19 +16,22 @@
           @onClick="goToCategory"
         />
       </div>
-      <Button type="red" v-if="withRemoveButton">Remove movie</Button>
-      <router-link
-        :to="`/movie/${movie.id}`"
-        class="at-bottom"
-        v-if="withCategoryButton"
-      >
-        <Button type="yellow">See description</Button>
-      </router-link>
+      <div class="at-bottom">
+        <Button
+          type="red"
+          v-if="withRemoveButton"
+          @onClick="removeMovieFromFavorites(movie.id)"
+          >Remove movie</Button
+        ><router-link :to="`/movie/${movie.id}`" v-if="withCategoryButton">
+          <Button type="yellow">See description</Button>
+        </router-link>
+      </div>
     </div>
   </card>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import StarIcon from "@/assets/icons/StarIcon";
 import Card from "./Card";
 import Image from "./Image";
@@ -54,6 +57,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["removeMovieFromFavorites"]),
     goToCategory(categoryId) {
       this.$router.push(`/category/${categoryId}`);
     },
@@ -81,7 +85,6 @@ export default {
     text-align: center;
     color: white;
     display: grid;
-    grid-template-rows: repeat(4, auto);
     height: 100%;
 
     .stars {
