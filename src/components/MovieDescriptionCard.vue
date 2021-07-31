@@ -9,7 +9,18 @@
       </div>
       <div class="title" v-if="movie.title">{{ movie.title }}</div>
       <div class="overview" v-if="movie.overview">“ {{ movie.overview }} ”</div>
-      <Button type="blue" class-name="button-add-to-favorites"
+      <Button
+        v-if="isAFavoriteMovie"
+        type="blue"
+        class-name="button-margin"
+        @onClick="removeMovieFromFavorites(movie.id)"
+        >Remove from favorites</Button
+      >
+      <Button
+        v-else
+        type="blue"
+        class-name="button-margin"
+        @onClick="addMovieToFavorites(movie)"
         >Add to favorites</Button
       >
     </div>
@@ -17,6 +28,7 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
 import HalfStarIcon from "@/assets/icons/HalfStarIcon";
 import StarIcon from "@/assets/icons/StarIcon";
 import Card from "./Card";
@@ -26,8 +38,17 @@ import Button from "./Button";
 export default {
   name: "MovieDescriptionCard",
   components: { HalfStarIcon, StarIcon, Button, Image, Card },
+  computed: {
+    isAFavoriteMovie() {
+      return this.isMovieInTheList()(this.movie.id);
+    },
+  },
   props: {
     movie: Object,
+  },
+  methods: {
+    ...mapMutations(["addMovieToFavorites", "removeMovieFromFavorites"]),
+    ...mapGetters(["isMovieInTheList"]),
   },
 };
 </script>
@@ -72,7 +93,7 @@ export default {
       font-style: italic;
     }
 
-    .button-add-to-favorites {
+    .button-margin {
       margin-top: 2rem;
     }
   }

@@ -15,16 +15,13 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import HeartIcon from "@/assets/icons/HeartIcon";
 
 export default {
   name: "Navbar",
   components: { HeartIcon },
-  data: () => {
-    return {
-      favoriteMovies: [],
-    };
-  },
+  computed: mapState(["favoriteMovies"]),
 };
 </script>
 

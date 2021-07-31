@@ -25,6 +25,7 @@ export default {
 <style scoped lang="scss">
 .button {
   @extend .items-center;
+  display: inline;
   cursor: pointer;
   height: 40px;
   color: white;
