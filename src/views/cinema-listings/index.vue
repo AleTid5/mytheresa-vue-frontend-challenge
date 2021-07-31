@@ -18,7 +18,7 @@ import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
 
 export default {
-  name: "CinemaListings",
+  name: "CinemaListingsView",
   components: { Loader, MovieCard },
 
   computed: {

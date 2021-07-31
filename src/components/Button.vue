@@ -1,5 +1,9 @@
 <template>
-  <button class="button" :class="type" @click="$emit('onClick')">
+  <button
+    class="button"
+    :class="{ [className]: className, [type]: type }"
+    @click="$emit('onClick')"
+  >
     <slot />
   </button>
 </template>
@@ -7,10 +11,12 @@
 <script>
 export default {
   props: {
+    className: String,
     type: {
       type: String,
       default: "default",
-      validator: (value) => ["default", "red", "yellow"].includes(value),
+      validator: (value) =>
+        ["default", "red", "yellow", "blue"].includes(value),
     },
   },
 };
@@ -46,6 +52,11 @@ export default {
   &.yellow {
     border: 1px solid $main-app-color;
     box-shadow: 0 0 10px $main-app-color;
+  }
+
+  &.blue {
+    border: 1px solid #85c8ff;
+    box-shadow: 0 0 10px #85c8ff;
   }
 }
 </style>

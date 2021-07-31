@@ -8,4 +8,9 @@ export default {
 
     return results;
   },
+  getMovieById: async (movieId) => {
+    const { data } = await api.get(`/movie/${movieId}`);
+
+    return data;
+  },
 };

@@ -22,13 +22,13 @@
 </template>
 
 <script>
+import Button from "@/components/Button";
 import MovieCard from "@/components/MovieCard";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
-import Button from "../../components/Button";
 
 export default {
-  name: "Category",
+  name: "CategoryView",
   components: { Button, MovieCard },
 
   computed: {
