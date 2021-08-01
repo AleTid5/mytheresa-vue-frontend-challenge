@@ -10,9 +10,9 @@
 
 <script>
 import Button from "@/components/Button";
+import MediaNotFound from "@/components/MediaNotFound";
 import MovieDescriptionCard from "@/components/MovieDescriptionCard";
 import MovieListApiService from "@/services/api/movie-list.api";
-import MediaNotFound from "../../components/MediaNotFound";
 
 export default {
   name: "MovieDetailsView",

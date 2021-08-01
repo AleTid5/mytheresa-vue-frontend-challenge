@@ -28,9 +28,9 @@
 <script>
 import Loader from "@/components/Loader";
 import MovieCard from "@/components/MovieCard";
+import SearchInput from "@/components/SearchInput";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
-import SearchInput from "../../components/SearchInput";
 
 export default {
   name: "CinemaListingsView",

@@ -24,10 +24,10 @@
 
 <script>
 import Button from "@/components/Button";
+import MediaNotFound from "@/components/MediaNotFound";
 import MovieCard from "@/components/MovieCard";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
-import MediaNotFound from "../../components/MediaNotFound";
 
 export default {
   name: "CategoryView",

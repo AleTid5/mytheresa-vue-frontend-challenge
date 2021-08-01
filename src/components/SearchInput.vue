@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import SearchIcon from "../assets/icons/SearchIcon";
+import SearchIcon from "@/assets/icons/SearchIcon";
 export default {
   name: "SearchInput",
   components: { SearchIcon },
