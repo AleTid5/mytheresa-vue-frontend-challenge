@@ -62,14 +62,18 @@ export default {
     },
     scroll() {
       window.onscroll = () => {
-        this.bottomReached =
+        const loaderHeight = 70;
+
+        const scrolledPosition =
           Math.max(
             window.pageYOffset,
             document.documentElement.scrollTop,
             document.body.scrollTop
-          ) +
-            window.innerHeight ===
-          document.documentElement.offsetHeight;
+          ) + window.innerHeight;
+
+        const documentHeight = document.documentElement.offsetHeight;
+
+        this.bottomReached = documentHeight - scrolledPosition < loaderHeight;
       };
     },
     async onSearchChange(search) {

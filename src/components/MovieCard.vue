@@ -123,11 +123,16 @@ export default {
 
     .overview {
       margin-top: 0.5rem;
-      font-size: 1.3rem;
+      font-size: 1rem;
       font-style: italic;
-      max-height: 3.5rem;
+      max-height: 5rem;
       color: $title-color;
       overflow: auto;
+
+      @include media(sm) {
+        max-height: 3.5rem;
+        font-size: 1.3rem;
+      }
     }
   }
 }
