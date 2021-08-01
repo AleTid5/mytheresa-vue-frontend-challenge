@@ -70,9 +70,12 @@ export default {
   img {
     border-radius: 10px;
     margin: auto;
+    width: 100%;
+    max-width: 180px;
 
     @include media(sm) {
       margin: unset;
+      max-width: 100%;
     }
   }
 

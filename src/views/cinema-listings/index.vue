@@ -1,10 +1,10 @@
 <template>
   <div class="search-input-bar">
-    <SearchInput />
+    <SearchInput @onChange="onSearchChange" />
   </div>
   <div class="app-container movie-grid">
     <movie-card
-      v-for="movie in movies"
+      v-for="movie in filteredMovies ?? movies"
       :movie="movie"
       :key="movie"
       with-categories-badges
@@ -12,6 +12,17 @@
     />
   </div>
   <Loader v-if="showLoader" />
+  <div class="no-results" v-if="filteredMovies?.length === 0">
+    <h1 class="no-results-title">Don't give up yet!</h1>
+    <ul class="no-results-list">
+      <li>
+        Double check that your searched item(s) didn't include any typos or
+        spelling mistakes
+      </li>
+      <li>Perhaps try searching with a more general term</li>
+      <li>Perhaps try searching with similar terms</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -27,12 +38,15 @@ export default {
 
   computed: {
     showLoader() {
-      return this.sectionRetrievingIndex < SECTIONS.length;
+      return (
+        this.sectionRetrievingIndex < SECTIONS.length && !this.filteredMovies
+      );
     },
   },
 
   data: () => ({
     movies: [],
+    filteredMovies: null,
     sectionRetrievingIndex: 0,
     bottomReached: false,
   }),
@@ -66,6 +80,14 @@ export default {
             window.innerHeight ===
           document.documentElement.offsetHeight;
       };
+    },
+    async onSearchChange(search) {
+      if (search.length < 2) {
+        this.filteredMovies = null;
+        return;
+      }
+
+      this.filteredMovies = await MovieListApiService.getListByQuery(search);
     },
   },
 
@@ -107,6 +129,24 @@ export default {
 
   @include media(lg) {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-title {
+    color: $title-color;
+    text-transform: uppercase;
+  }
+
+  &-list {
+    color: $title-color;
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
   }
 }
 </style>

@@ -1,10 +1,17 @@
 <template>
-  <img loading="lazy" :src="baseUrl + src" :alt="alt" :class="className" />
+  <img loading="lazy" :src="imageSource" :alt="alt" :class="className" />
 </template>
 
 <script>
 export default {
   name: "Image",
+  computed: {
+    imageSource() {
+      return this.src
+        ? process.env.VUE_APP_TMDB_BASE_IMAGE_URL + this.src
+        : process.env.VUE_APP_TMDB_DEFAULT_IMAGE_URL;
+    },
+  },
   props: {
     src: String,
     alt: {
@@ -12,10 +19,6 @@ export default {
       default: "",
     },
     className: String,
-    baseUrl: {
-      type: String,
-      default: process.env.VUE_APP_TMDB_IMAGE_URL,
-    },
   },
 };
 </script>

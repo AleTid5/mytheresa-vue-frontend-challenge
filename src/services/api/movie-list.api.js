@@ -8,6 +8,13 @@ export default {
 
     return results;
   },
+  getListByQuery: async (query) => {
+    const {
+      data: { results },
+    } = await api.get("/search/movie", { params: { query } });
+
+    return results;
+  },
   getMovieById: async (movieId) => {
     const { data } = await api.get(`/movie/${movieId}`);
 

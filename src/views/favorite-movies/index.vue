@@ -8,9 +8,9 @@
         with-remove-button
       />
     </div>
-    <div v-else>
-      <h1 class="no-movies-selected">There are no favorite movies selected</h1>
-    </div>
+    <h1 class="no-movies-selected" v-else>
+      There are no favorite movies selected
+    </h1>
   </div>
 </template>
 
@@ -52,7 +52,6 @@ export default {
   .no-movies-selected {
     color: $title-color;
     text-transform: uppercase;
-    font-size: 24px;
     text-align: center;
   }
 }

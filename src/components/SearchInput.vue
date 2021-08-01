@@ -1,7 +1,13 @@
 <template>
   <div class="search-input">
-    <input type="text" class="input" placeholder="Search a movie..." value="" />
-    <div class="icon">
+    <input
+      type="text"
+      class="input"
+      placeholder="Search a movie..."
+      v-model="value"
+      @input="$emit('onChange', value)"
+    />
+    <div class="icon" @click="$emit('onChange', value)">
       <SearchIcon />
     </div>
   </div>
@@ -12,6 +18,9 @@ import SearchIcon from "../assets/icons/SearchIcon";
 export default {
   name: "SearchInput",
   components: { SearchIcon },
+  data: () => ({
+    value: "",
+  }),
 };
 </script>
 
