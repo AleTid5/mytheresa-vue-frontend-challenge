@@ -3,7 +3,8 @@
     <router-link to="/">
       <Button>Go to cinema listings</Button>
     </router-link>
-    <MovieDescriptionCard :movie="movie" />
+    <MovieDescriptionCard :movie="movie" v-if="movie.id" />
+    <MediaNotFound v-else media="movie" />
   </div>
 </template>
 
@@ -11,10 +12,11 @@
 import Button from "@/components/Button";
 import MovieDescriptionCard from "@/components/MovieDescriptionCard";
 import MovieListApiService from "@/services/api/movie-list.api";
+import MediaNotFound from "../../components/MediaNotFound";
 
 export default {
   name: "MovieDetailsView",
-  components: { MovieDescriptionCard, Button },
+  components: { MediaNotFound, MovieDescriptionCard, Button },
   data: () => ({
     movie: {},
   }),

@@ -9,7 +9,7 @@
       </router-link>
     </div>
     <div>
-      <div class="movie-grid">
+      <div class="movie-grid" v-if="movies.length > 0">
         <movie-card
           v-for="movie in movies"
           :movie="movie"
@@ -17,6 +17,7 @@
           with-category-button
         />
       </div>
+      <MediaNotFound v-else media="category" />
     </div>
   </div>
 </template>
@@ -26,16 +27,19 @@ import Button from "@/components/Button";
 import MovieCard from "@/components/MovieCard";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
+import MediaNotFound from "../../components/MediaNotFound";
 
 export default {
   name: "CategoryView",
-  components: { Button, MovieCard },
+  components: { MediaNotFound, Button, MovieCard },
 
   computed: {
     genreName() {
-      return SECTIONS.find(
-        ({ id }) => id === parseInt(this.$route.params.categoryId)
-      ).name;
+      return (
+        SECTIONS.find(
+          ({ id }) => id === parseInt(this.$route.params.categoryId)
+        )?.name ?? "Invalid category"
+      );
     },
   },
 
