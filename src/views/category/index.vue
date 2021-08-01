@@ -9,7 +9,7 @@
       </router-link>
     </div>
     <div>
-      <div class="movie-grid" v-if="movies.length > 0">
+      <div class="movie-grid" v-if="!error">
         <movie-card
           v-for="movie in movies"
           :movie="movie"
@@ -38,20 +38,25 @@ export default {
       return (
         SECTIONS.find(
           ({ id }) => id === parseInt(this.$route.params.categoryId)
-        )?.name ?? "Invalid category"
+        )?.name ?? "Category not found"
       );
     },
   },
 
   data: () => ({
     movies: [],
+    error: false,
   }),
 
   methods: {
     async retrieveMovies() {
-      this.movies = await MovieListApiService.getListByCategoryId(
-        this.$route.params.categoryId
-      );
+      try {
+        this.movies = await MovieListApiService.getListByCategoryId(
+          this.$route.params.categoryId
+        );
+      } catch (e) {
+        this.error = true;
+      }
     },
   },
 

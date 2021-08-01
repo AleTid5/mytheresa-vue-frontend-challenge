@@ -12,29 +12,20 @@
     />
   </div>
   <Loader v-if="showLoader" />
-  <div class="no-results" v-if="filteredMovies?.length === 0">
-    <h1 class="no-results-title">Don't give up yet!</h1>
-    <ul class="no-results-list">
-      <li>
-        Double check that your searched item(s) didn't include any typos or
-        spelling mistakes
-      </li>
-      <li>Perhaps try searching with a more general term</li>
-      <li>Perhaps try searching with similar terms</li>
-    </ul>
-  </div>
+  <MoviesNotFound v-if="filteredMovies?.length === 0" />
 </template>
 
 <script>
 import Loader from "@/components/Loader";
 import MovieCard from "@/components/MovieCard";
+import MoviesNotFound from "@/components/MoviesNotFound";
 import SearchInput from "@/components/SearchInput";
 import SECTIONS from "@/constants/sections.constants";
 import MovieListApiService from "@/services/api/movie-list.api";
 
 export default {
   name: "CinemaListingsView",
-  components: { SearchInput, Loader, MovieCard },
+  components: { MoviesNotFound, SearchInput, Loader, MovieCard },
 
   computed: {
     showLoader() {
@@ -129,24 +120,6 @@ export default {
 
   @include media(lg) {
     grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.no-results {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &-title {
-    color: $title-color;
-    text-transform: uppercase;
-  }
-
-  &-list {
-    color: $title-color;
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.5rem;
   }
 }
 </style>

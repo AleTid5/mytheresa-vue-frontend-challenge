@@ -3,7 +3,7 @@
     <router-link to="/">
       <Button>Go to cinema listings</Button>
     </router-link>
-    <MovieDescriptionCard :movie="movie" v-if="movie.id" />
+    <MovieDescriptionCard :movie="movie" v-if="!error" />
     <MediaNotFound v-else media="movie" />
   </div>
 </template>
@@ -19,13 +19,23 @@ export default {
   components: { MediaNotFound, MovieDescriptionCard, Button },
   data: () => ({
     movie: {},
+    error: false,
   }),
+
+  methods: {
+    async retrieveMovies() {
+      try {
+        this.movie = await MovieListApiService.getMovieById(
+          this.$route.params.movieId
+        );
+      } catch (e) {
+        this.error = true;
+      }
+    },
+  },
+
   created() {
-    (async () => {
-      this.movie = await MovieListApiService.getMovieById(
-        this.$route.params.movieId
-      );
-    })();
+    this.retrieveMovies();
   },
 };
 </script>
