@@ -1,4 +1,5 @@
 import router from "../../src/router";
+import store from "../../src/stores";
 
 export const renderOptionsMock = {
   global: {
@@ -6,6 +7,7 @@ export const renderOptionsMock = {
       $router: {
         push: jest.fn(),
       },
+      $store: store,
     },
   },
   router,

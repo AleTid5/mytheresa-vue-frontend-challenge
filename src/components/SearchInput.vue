@@ -7,7 +7,12 @@
       v-model="value"
       data-testid="movie-search-input"
     />
-    <div class="icon" :class="{ close: value.length > 0 }" @click="cleanInput">
+    <div
+      class="icon"
+      :class="{ close: value.length > 0 }"
+      @click="cleanInput"
+      data-testid="clean-search-input"
+    >
       <SearchIcon v-if="value.length === 0" />
       <CloseIcon v-else />
     </div>

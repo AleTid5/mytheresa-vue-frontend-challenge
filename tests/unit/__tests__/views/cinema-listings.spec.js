@@ -73,7 +73,9 @@ describe("Cinema Listings Tests", () => {
           target: { value: "the forever" },
         });
 
-        expect(queryAllByText(/the forever purge/i).length).toBe(4);
+        await waitFor(() =>
+          expect(queryAllByText(/the forever purge/i).length).toBe(4)
+        );
         expect(queryAllByText(/adventure/i).length).toBe(4);
 
         await fireEvent.input(getByTestId("movie-search-input"), {
@@ -82,6 +84,26 @@ describe("Cinema Listings Tests", () => {
 
         expect(queryAllByText(/the forever purge/i).length).toBe(10);
         expect(queryAllByText(/adventure/i).length).toBe(10);
+      });
+
+      test("should correctly clean the movie filter", async () => {
+        const { queryAllByText, getByTestId } = renderCinemaListings();
+
+        await waitFor(() =>
+          expect(queryAllByText(/the forever purge/i).length).toBe(10)
+        );
+
+        await fireEvent.input(getByTestId("movie-search-input"), {
+          target: { value: "the forever" },
+        });
+
+        await waitFor(() =>
+          expect(queryAllByText(/the forever purge/i).length).toBe(4)
+        );
+
+        await fireEvent.click(getByTestId("clean-search-input"));
+
+        expect(queryAllByText(/the forever purge/i).length).toBe(10);
       });
     });
   });
