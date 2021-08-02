@@ -11,7 +11,9 @@
 <script>
 export default {
   props: {
-    className: String,
+    className: {
+      type: String,
+    },
     type: {
       type: String,
       default: "default",
