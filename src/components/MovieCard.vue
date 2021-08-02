@@ -22,7 +22,7 @@
           v-if="withRemoveButton"
           @onClick="removeMovieFromFavorites(movie.id)"
           >Remove movie</Button
-        ><router-link :to="`/movie/${movie.id}`" v-if="withCategoryButton">
+        ><router-link :to="`/movie/${movie.id}`" v-if="withMovieButton">
           <Button type="yellow">See description</Button>
         </router-link>
       </div>
@@ -47,7 +47,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    withCategoryButton: {
+    withMovieButton: {
       type: Boolean,
       default: false,
     },

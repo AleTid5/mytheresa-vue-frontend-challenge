@@ -8,7 +8,7 @@
       :movie="movie"
       :key="movie"
       with-categories-badges
-      with-category-button
+      with-movie-button
     />
   </div>
   <Loader v-if="showLoader" />

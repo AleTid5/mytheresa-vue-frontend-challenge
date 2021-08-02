@@ -14,7 +14,7 @@
           v-for="movie in movies"
           :movie="movie"
           :key="movie"
-          with-category-button
+          with-movie-button
         />
       </div>
       <MediaNotFound v-else media="category" />
