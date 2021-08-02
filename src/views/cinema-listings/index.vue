@@ -1,6 +1,6 @@
 <template>
   <div class="search-input-bar">
-    <SearchInput @onChange="onSearchChange" />
+    <SearchInput @onChange="onSearchChange" :initial-value="searchValue" />
   </div>
   <div class="app-container movie-grid">
     <movie-card
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
 import Loader from "@/components/Loader";
 import MovieCard from "@/components/MovieCard";
 import MoviesNotFound from "@/components/MoviesNotFound";
@@ -28,6 +29,7 @@ export default {
   components: { MoviesNotFound, SearchInput, Loader, MovieCard },
 
   computed: {
+    ...mapState("search-filter-module", ["searchValue"]),
     showLoader() {
       return (
         this.sectionRetrievingIndex < SECTIONS.length && !this.filteredMovies
@@ -53,6 +55,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations("search-filter-module", ["onChangeSearchValue"]),
     async retrieveMovies() {
       this.movies.push(
         ...(await MovieListApiService.getListByCategoryId(
@@ -77,12 +80,13 @@ export default {
       };
     },
     async onSearchChange(search) {
-      if (search.length < 2) {
-        this.filteredMovies = null;
-        return;
-      }
+      const isAValidSearch = search.length > 2;
 
-      this.filteredMovies = await MovieListApiService.getListByQuery(search);
+      this.filteredMovies = isAValidSearch
+        ? await MovieListApiService.getListByQuery(search)
+        : null;
+
+      this.onChangeSearchValue(search);
     },
   },
 

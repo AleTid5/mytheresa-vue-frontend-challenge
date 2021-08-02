@@ -5,23 +5,52 @@
       class="input"
       placeholder="Search a movie..."
       v-model="value"
-      @input="$emit('onChange', value)"
       data-testid="movie-search-input"
     />
-    <div class="icon" @click="$emit('onChange', value)">
-      <SearchIcon />
+    <div class="icon" :class="{ close: value.length > 0 }" @click="cleanInput">
+      <SearchIcon v-if="value.length === 0" />
+      <CloseIcon v-else />
     </div>
   </div>
 </template>
 
 <script>
+import CloseIcon from "@/assets/icons/CloseIcon";
 import SearchIcon from "@/assets/icons/SearchIcon";
+
 export default {
   name: "SearchInput",
-  components: { SearchIcon },
-  data: () => ({
-    value: "",
-  }),
+  components: { CloseIcon, SearchIcon },
+  props: {
+    initialValue: {
+      type: String,
+      default: "",
+    },
+  },
+
+  data() {
+    return {
+      value: this.initialValue,
+    };
+  },
+
+  watch: {
+    value(value) {
+      this.$emit("onChange", value);
+    },
+  },
+
+  methods: {
+    cleanInput() {
+      this.value = "";
+    },
+  },
+
+  created() {
+    if (this.value !== "") {
+      this.$emit("onChange", this.value);
+    }
+  },
 };
 </script>
 
@@ -56,7 +85,6 @@ export default {
   }
 
   .icon {
-    cursor: pointer;
     width: 24px;
     height: 24px;
     position: absolute;
@@ -65,10 +93,15 @@ export default {
     align-items: center;
     justify-content: center;
     background-color: $main-bg-color;
+    user-select: none;
 
     svg {
       width: 20px;
       height: 20px;
+    }
+
+    &.close {
+      cursor: pointer;
     }
   }
 }
