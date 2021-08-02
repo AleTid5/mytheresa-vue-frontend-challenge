@@ -6,6 +6,7 @@
       placeholder="Search a movie..."
       v-model="value"
       @input="$emit('onChange', value)"
+      data-testid="movie-search-input"
     />
     <div class="icon" @click="$emit('onChange', value)">
       <SearchIcon />

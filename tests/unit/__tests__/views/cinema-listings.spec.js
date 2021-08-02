@@ -12,7 +12,9 @@ describe("Cinema Listings Tests", () => {
       jest
         .spyOn(MovieListApiService, "getListByCategoryId")
         .mockReturnValue(getRandomMovies(10));
+    });
 
+    afterEach(() => {
       jest.clearAllMocks();
     });
 
@@ -41,6 +43,46 @@ describe("Cinema Listings Tests", () => {
 
       expect(mockedRoute).toHaveBeenCalledTimes(1);
       expect(mockedRoute).toHaveBeenCalledWith("/category/12");
+    });
+
+    describe("when movies are filtered", () => {
+      beforeEach(() => {
+        jest
+          .spyOn(MovieListApiService, "getListByQuery")
+          .mockReturnValue(getRandomMovies(4));
+      });
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      afterAll(() => {
+        jest.spyOn(MovieListApiService, "getListByQuery").mockReturnValue(null);
+      });
+
+      test("should correctly render filtered movies", async () => {
+        const { queryAllByText, getByTestId } = renderCinemaListings();
+
+        await waitFor(() =>
+          expect(queryAllByText(/the forever purge/i).length).toBe(10)
+        );
+
+        expect(queryAllByText(/adventure/i).length).toBe(10);
+
+        await fireEvent.input(getByTestId("movie-search-input"), {
+          target: { value: "the forever" },
+        });
+
+        expect(queryAllByText(/the forever purge/i).length).toBe(4);
+        expect(queryAllByText(/adventure/i).length).toBe(4);
+
+        await fireEvent.input(getByTestId("movie-search-input"), {
+          target: { value: "t" },
+        });
+
+        expect(queryAllByText(/the forever purge/i).length).toBe(10);
+        expect(queryAllByText(/adventure/i).length).toBe(10);
+      });
     });
   });
 });
